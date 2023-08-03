@@ -1,0 +1,7 @@
+storage:
+  type: SqlLite # SqlLite or MariaDB
+  address: 127.0.0.1
+  port: 3306
+  database: JAuctionHouse
+  username: root
+  password: password
