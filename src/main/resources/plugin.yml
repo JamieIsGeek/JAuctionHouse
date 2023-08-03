@@ -1,0 +1,4 @@
+name: JAuctionHouse
+version: '${version}'
+main: net.sootmc.jauctionhouse.JAuctionHouse
+api-version: '1.19'
