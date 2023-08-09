@@ -2,3 +2,8 @@ name: JAuctionHouse
 version: '${version}'
 main: net.sootmc.jauctionhouse.JAuctionHouse
 api-version: '1.19'
+commands:
+  ah:
+    description: Auction House Command
+    usage: /<command> [args]
+    aliases: [auctionhouse, auction, auctions]

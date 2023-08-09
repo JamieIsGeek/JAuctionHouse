@@ -44,7 +44,7 @@ public class DatabaseHandler {
         try {
             PreparedStatement items = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, item TEXT, amount INTEGER, price INTEGER, seller TEXT, time INTEGER, expired INTEGER)");
             PreparedStatement logs = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, item TEXT, amount INTEGER, price INTEGER, seller TEXT, buyer TEXT, time INTEGER)");
-            PreparedStatement blacklist = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS blacklist (id INTEGER PRIMARY KEY, user TEXT, time INTEGER)");
+            PreparedStatement blacklist = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS blacklist (id INTEGER PRIMARY KEY, user TEXT)");
             PreparedStatement expired = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS expired (id INTEGER PRIMARY KEY, item TEXT, amount INTEGER, price INTEGER, seller TEXT, time INTEGER)");
             PreparedStatement claims = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS claims (id INTEGER PRIMARY KEY, item TEXT, amount INTEGER, price INTEGER, seller TEXT, buyer TEXT, time INTEGER)");
 
@@ -133,5 +133,36 @@ public class DatabaseHandler {
         }
 
         return connection;
+    }
+
+    public boolean isBlacklisted(String UUID) {
+        try (Connection conn = getConnection()){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM blacklist WHERE user=?");
+            stmt.setString(1, UUID);
+            return stmt.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void blacklist(String uuid) {
+        try (Connection conn = getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO blacklist (user) VALUES (?)");
+            stmt.setString(1, uuid);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unblacklist(String uuid) {
+        try (Connection conn = getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM blacklist WHERE user=?");
+            stmt.setString(1, uuid);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

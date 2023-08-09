@@ -47,3 +47,8 @@ processResources {
         expand props
     }
 }
+
+jar {
+
+    destinationDirectory.set(file("$buildDir/libs/test-server/plugins"))
+}

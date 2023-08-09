@@ -2,6 +2,8 @@ package net.sootmc.jauctionhouse;
 
 import net.sootmc.jauctionhouse.Handlers.ConfigHandler;
 import net.sootmc.jauctionhouse.Handlers.DatabaseHandler;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -26,22 +28,27 @@ public final class JAuctionHouse extends JavaPlugin {
                 configHandler.getString("databasePassword"),
                 this.getDataFolder()
         );
+
+        this.getCommand("ah").setExecutor(new AHCommand(databaseHandler));
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
     }
-    
+
     private boolean isExternalDB(String type) {
         return !type.equalsIgnoreCase("Sqlite");
     }
-    
+
     public static void Log(String message, Level level) {
         logger.log(level, message);
     }
-    
+
     public static void Log(String message) {
         Log(message, Level.INFO);
+    }
+    public static void sendPlayerMessage(Player player, String message) {
+        player.sendMessage("[" + ChatColor.AQUA + "JAuctionHouse" + ChatColor.WHITE + "] " + message);
     }
 }
