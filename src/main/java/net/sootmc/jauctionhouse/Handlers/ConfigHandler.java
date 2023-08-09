@@ -11,16 +11,14 @@ public class ConfigHandler {
         this.plugin = plugin;
     }
 
-    public boolean initialize() {
+    public void initialize() {
         try {
             plugin.saveConfig();
 
             this.config = plugin.getConfig();
 
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -30,11 +28,9 @@ public class ConfigHandler {
     public String getString(String path) {
         return config.getString(path);
     }
-
     public Integer getInt(String path) {
         return config.getInt(path);
     }
-
     public boolean getBoolean(String path) {
         return config.getBoolean(path);
     }
