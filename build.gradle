@@ -15,12 +15,14 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT"
     compileOnly "org.xerial:sqlite-jdbc:3.8.11.2"
     compileOnly 'com.zaxxer:HikariCP:2.3.2'
+    implementation "com.samjakob:SpiGUI:v1.3"
 }
 
 def targetJavaVersion = 17
@@ -49,6 +51,5 @@ processResources {
 }
 
 jar {
-
     destinationDirectory.set(file("$buildDir/libs/test-server/plugins"))
 }

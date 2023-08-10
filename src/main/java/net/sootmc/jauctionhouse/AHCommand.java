@@ -11,8 +11,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class AHCommand implements CommandExecutor {
     private final DatabaseHandler dbh;
-    public AHCommand(DatabaseHandler dbh) {
+    private final AHManager ahm;
+    public AHCommand(DatabaseHandler dbh, AHManager ahm) {
         this.dbh = dbh;
+        this.ahm = ahm;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -28,8 +30,7 @@ public class AHCommand implements CommandExecutor {
             }
 
             // TODO: Add ah opening method
-            // Temp
-            JAuctionHouse.sendPlayerMessage(player, ChatColor.RED + "This command is not yet implemented!");
+            ahm.openAuctionHouse(player);
             return true;
         }
 
