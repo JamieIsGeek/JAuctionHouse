@@ -29,7 +29,6 @@ public class AHCommand implements CommandExecutor {
                 return true;
             }
 
-            // TODO: Add ah opening method
             ahm.openAuctionHouse(player);
             return true;
         }

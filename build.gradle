@@ -1,28 +1,28 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'net.sootmc'
 version = '1.0'
-
-repositories {
-    mavenCentral()
-    maven {
-        name = "spigotmc-repo"
-        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "spigotmc-repo"
+            url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/groups/public/"
+        }
     }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
-    }
-    maven { url 'https://jitpack.io' }
 }
-
 dependencies {
+    implementation 'com.github.stefvanschie.inventoryframework:IF:0.10.11'
     compileOnly "org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT"
     compileOnly "org.xerial:sqlite-jdbc:3.8.11.2"
     compileOnly 'com.zaxxer:HikariCP:2.3.2'
-    implementation "com.samjakob:SpiGUI:v1.3"
 }
 
 def targetJavaVersion = 17
@@ -50,6 +50,7 @@ processResources {
     }
 }
 
-jar {
+shadowJar {
+    relocate 'com.github.stefvanschie.inventoryframework', 'net.sootmc.jauctionhouse.inventoryframework'
     destinationDirectory.set(file("$buildDir/libs/test-server/plugins"))
 }

@@ -1,6 +1,5 @@
 package net.sootmc.jauctionhouse;
 
-import com.samjakob.spigui.SpiGUI;
 import net.sootmc.jauctionhouse.Handlers.ConfigHandler;
 import net.sootmc.jauctionhouse.Handlers.DatabaseHandler;
 import org.bukkit.ChatColor;
@@ -14,12 +13,10 @@ public final class JAuctionHouse extends JavaPlugin {
     private DatabaseHandler databaseHandler;
     private ConfigHandler configHandler;
     private static Logger logger;
-    private SpiGUI spigui;
 
     @Override
     public void onEnable() {
         configHandler = new ConfigHandler(this);
-        spigui = new SpiGUI(this);
         configHandler.initialize();
         logger = getLogger();
         databaseHandler = new DatabaseHandler(
@@ -53,8 +50,5 @@ public final class JAuctionHouse extends JavaPlugin {
     }
     public static void sendPlayerMessage(Player player, String message) {
         player.sendMessage("[" + ChatColor.AQUA + "JAuctionHouse" + ChatColor.WHITE + "] " + message);
-    }
-    public SpiGUI getSpigui() {
-        return this.spigui;
     }
 }
